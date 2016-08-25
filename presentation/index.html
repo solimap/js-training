@@ -1,0 +1,564 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <style type="text/css">
+
+.reveal h2, .reveal h1 {
+    padding-bottom: 30px
+}
+
+.reveal p {
+    padding-bottom: 30px
+}
+    </style>
+
+    <!-- Printing and PDF exports -->
+    <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h1>NodeJs & Javascript</h1>
+                <p>
+                    <small>Markus Palviainen</small>
+                </p>
+                <p><img src="img/javascript-and-the-good-parts.jpg"></p>
+            </section>
+            <section>
+                <h2>Javascriptin synty</h2>
+                <p>Netscape loi kielen 1996 tehdäkseen HTML-sivuista dynaamisempia</p>
+                <p>Brendan Eich loi ensimmäisen version vain 10 päivässä</p>
+                <p>Nimi alunperin LiveScript, mutta sai nykyisen nimensä Javan suosion myötä</p>
+            </section>
+            <section>
+                <h2>Javascript kielenä</h2>
+                <p>Alkuperäisenä tavoitteena oli tehdä aloittelijaystävällinen kieli</p>
+                <p>Alussa kielellä maine lähinnä käyttäjää ärsyttävien käyttöliittymän interaktioiden luomisessa.
+                <input type="button" onclick="alert('LOL');" value="Click Me!" /></p>
+                <p>Kielen vakavoituminen, kun käyttöliittymälogiikka siirtyi verkkosovelluksissa vahvasti selaimeen Single Page Application -frameworkien myötä, kuten BackboneJs tai AngularJs. Toinen vakavoittava tekijä NodeJs.</p>
+            </section>
+            <section>
+                <h2>Javascript kielenä</h2>
+                <p>Dynaamisesti tyypitetty kieli</p>
+                <p>Hybridikieli, jonka syntaksi muistuttaa C:tä</p>
+                <p>Funktionaalinen kieli. Funktiot statuksella "first-class citizen"</p>
+                <p>Oliokieli, jossa prototyyppipohjainen perintämalli</p>
+            </section>
+            <section>
+                <h2>Javascriptin versiot</h2>
+                <p>Kielen versioiden pohjalla EcmaScript (ES) -standardit</p>
+                <p>1996: Ensimmäinen versio</p>
+                <p>2009: ES5</p>
+                <p>2015: ES6, ES2015</p>
+                <p>2016: ES7, ES2016</p>
+                <p>Tulevaisuus: ES proposals</p>
+                <p><a target="_blank" href="http://kangax.github.io/compat-table/es6/">http://kangax.github.io/compat-table/es6/</a></p>
+            </section>
+            <section>
+                <h2>Javascript-johdannaiset</h2>
+                <p>Javascriptin päälle rakennettu joukko kieliä, jotka kääntyvät puhtaaksi Javascriptiksi</p>
+                <p>CoffeeScript, ClojureScript, Dart, TypeScript, JSX, Elm, ...</p>
+                <p><a target="_blank" href="https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js">https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js</a></p>
+            </section>
+            <section>
+                <h2>NodeJs</h2>
+                <p>Chromen V8 Enginen pohjalta rakennettu "serveriversio" Javascriptistä</p>
+                <p>Sovelluskehitys pohjautuu vahvasti eventtipohjaiseen, asynkroniseen ajattelumalliin</p>
+                <p>Suosittu nykyään erityisesti verkkosovellusten pohjalla</p>
+            </section>
+            <section>
+                <h2>NodeJs -moduulit</h2>
+                <p>Selain-Javascriptistä poiketen, Nodessa on alusta asti ollut tuki moduuleille, eikä kaikki ole samassa globaalissa nimiavaruudessa</p>
+                <p>NPM -pakettienhallinta moduuleiden jakamiselle ja asentamiselle</p>
+            </section>
+            <section>
+                <h2>NodeJs -versiot</h2>
+                <p>Mukailee EcmaScript-standardeja yhtä selkeästi kuin eri selaimetkin</p>
+                <p>Uusin versio 6.x.x. Versiosta 4 alkaen tuetaan useita ES2015 -ominaisuuksia, joten suositeltavaa käyttää vähintään nelosella alkavaa versiota</p>
+                <p>AWS:n Lambdat tukevat nykyään versiota 4.3</p>
+            </section>
+            <section>
+                <h1>Node ja npm</h1>
+            </section>
+            <section>
+                <h2>Node</h2>
+                <p>Sovellusten käynnistäminen yksinkertaisimmillaan node app.js, jossa app.js päätiedosto</p>
+                <p>Uusi sovellus kannattaa alustaa npm init -komennolla</p>
+            </section>
+            <section>
+                <h2>Node-moduulit</h2>
+                <p>Lokaalia node-moduulia vastaa käytännössä yksi js-tiedosto</p>
+                <p>Oletuksena moduuli pysyy omassa nimiavaruudessaan. Moduulin ulkoinen rajapinta module.exports avulla</p>
+                <p>Nykyisellään ei vielä tueta ES:n import/export -avainsanoja</p>
+                <p>Lokaalin moduulin latauksessa polkumääritys</p>
+            </section>
+            <section>
+                <h2>Node-moduulit</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+// exampleModule.js
+const privateVar = 5;
+const publicVar = 10;
+
+function revealPrivateVar() {
+  return privateVar;
+}
+
+module.exports = {
+  publicVar: publicVar,
+  revealPrivateVar: revealPrivateVar
+};
+
+// app.js
+const exampleModule = require('./exampleModule');
+exampleModule.revealPrivateVar() !== exampleModule.publicVar;
+                </code></pre>
+            </section>
+            <section>
+                <h2>Node-moduulit</h2>
+                <p>Npm:n kautta haetut kirjastot kommennolla npm install randomLibrary --save</p>
+                <p>Ladataan node_modules/ -hakemiston alle. --save vie ne myös package.json-tiedostoon</p>
+                <p>Tuotantoasennukseen kuulumattomat --save-dev flagilla, tällaisia mm. yksikkötestauksen kirjastot. Tuotantoasennus npm install --production</p>
+            </section>
+            <section>
+                <h2>Package.json</h2>
+                <p>Sovelluksen perustiedot ja asennettavien npm-moduulien versiot</p>
+                <p>npm start = Dokumentaatio, kuinka sovellus käynnistetään</p>
+                <p>npm test = Dokumentaatio, kuinka testit ajetaan</p>
+                <p>dependencies = --save flagilla tallennetut npm-paketit</p>
+                <p>devDependencies = --save-dev flagilla tallennetut npm-paketit</p>
+            </section>
+            <section>
+                <h2>Npm-versiointi</h2>
+                <p>1.2.3 = 1.2.3</p>
+                <p>~1.2.3 = Kaikki 1.2.x versiot</p>
+                <p>^1.2.3 = Kaikki 1.x.x versiot</p>
+                <p>Jos haluaa pelata varman päälle, niin kannattaa suosia eksakteja versionumeroita</p>
+            </section>
+            <section>
+                <h1>Javascript Best Practices</h1>
+                <p>Perustuu pitkälti AirBnb:n tyylioppaaseen <a target="_blank" href="https://github.com/airbnb/javascript">https://github.com/airbnb/javascript</a></p>
+            </section>
+            <section>
+                <h2>Muuttujat ja vakiot</h2>
+                <p>Muuttujien ja vakioiden esittelyille kolme eri avainsanaa: const, let ja var</p>
+                <p>const oletuksena. let jos arvo muuttuu</p>
+                <p>var ainoastaan ES5 tai vanhemmissa versioissa, koska scope määräytyy funktion mukaan, eikä lohkon mukaan</p>
+                <p>Alustamattomat muuttujat listan viimeiseksi</p>
+            </section>
+            <section>
+                <h2>Muuttujat ja vakiot</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+const factor = 5;
+let result = 0;
+let calculator;
+
+calculator = generateCalculator();
+numbers.forEach((number) => result += factor*calculator(i));
+                </code></pre>
+            </section>
+            <section>
+                <h2>Muuttujat ja vakiot</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+function calculator(c) {
+  var a = 5;
+
+  if (c > 3) {
+    var b = 3;
+  }
+
+  console.log(b);
+  return a + b + c; // works always in Javascript!
+}
+                </code></pre>
+            </section>
+            <section>
+                <h2>Numeeriset arvot</h2>
+                <p>Javascriptissä vain yksi tyyppi numeerisille arvoille</p>
+                <p>Numeerisen arvon ja merkkijonon summaus tuottaa merkkijonon. Numeerisen arvon ja merkkijonosta poikkeavan tietotyypin summaaminen tuottaa... jotain satunnaista</p>
+                <pre><code class="hljs" data-trim contenteditable>
+const stringValue = '10';
+const parsedValue1 = parseInt(stringValue, 10);
+const parsedValue2 = _.parseInt(stringValue);
+                </code></pre>
+            </section>
+            <section>
+                <h2>Merkkijonot</h2>
+                <p>Merkkijonojen dynaamisessa muodostamisessa kannattaa käyttää ES6 uutta template strings -ominaisuutta</p>
+                <pre><code class="hljs" data-trim contenteditable>
+const name = 'Donald';
+const emailTemplate = `Hello ${name}!`;
+                </code></pre>
+            </section>
+            <section>
+                <h2>Merkkijonot (ES5)</h2>
+                <p>ES5 -versiossa util.format käyttökelpoinen vastine templateille</p>
+                <pre><code class="hljs" data-trim contenteditable>
+util.format('%s:%s', 'foo', 'bar');
+                </code></pre>
+            </section>
+            <section>
+                <h2>Objektit ja listat</h2>
+                <p>Objektien ja listojen muuttujien arvot viittauksia</p>
+                <p>Kentän poistaminen delete -operaattorilla</p>
+                <pre><code class="hljs" data-trim contenteditable>
+const a = {foo: 'bar'};
+const b = a;
+a.foo = 'foobar';
+a.foo === b.foo;
+delete a.foo;
+                </code></pre>
+            </section>
+            <section>
+                <h2>Vertailuoperaattorit</h2>
+                <p>Käytä vertailuissa triplaoperaattoria tuplaoperaattorien sijaan</p>
+                <pre><code class="hljs" data-trim contenteditable>
+const a = 5;
+const b = 5;
+const c = '5';
+a === b;
+b !== c;
+b == c;
+                </code></pre>
+            </section>
+            <section>
+                <h2>Vertailuoperaattorit</h2>
+                <p>"Truthy" vertailu yleinen tapa Javascriptissä. false, 0, "", null, undefined, and NaN kääntyvät false -arvoon, muutoin true.</p>
+                <pre><code class="hljs" data-trim contenteditable>
+const value = 5;
+if (value) {
+  console.log('Value is truthy');
+}
+                </code></pre>
+            </section>
+            <section>
+                <h2>Strict mode</h2>
+                <p>ES5:stä eteenpäin toimiva ominaisuus, jolla voidaan estää mm. globaalien muuttujien käyttö</p>
+                <p>Suositeltavaa laittaa tiedoston alkuun, muutoin esim. let-muuttujat eivät toimi</p>
+                <p>Vaihtoehtoisesti voidaan viedä komentorivin kautta: node --use_strict</p>
+                <p><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode</a></p>
+                <pre><code class="hljs" data-trim contenteditable>
+'use strict';
+
+const foo = 5;
+const bar = '5';
+...
+                </code></pre>
+            </section>
+            <section>
+                <h2>Funktionaalinen Javascript</h2>
+                <p>ES6 toi kokoelmiin joukon funktionaalisen ohjelmoinnin perusfunktioita (kokoelmiin)</p>
+                <p>Suositeltavaa käyttää näitä funktioita for-luupin sijaan</p>
+                <p>Lodash <a target="_blank" href="https://lodash.com/">https://lodash.com/</a> paikkaa puuttuvia funktioita ja tuo joukon hyödyllisiä apufunktioita.</p>
+            </section>
+            <section>
+                <h2>Funktionaalinen Javascript</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+const numbers = [1, 2, 3, 4, 5];
+const sum = numbers.reduce((total, num) => total + num, 0);
+const doubles = numbers.map((num) => 2*num);
+doubles.forEach(num => console.log(num));
+                </code></pre>
+                <pre><code class="hljs" data-trim contenteditable>
+const _ = require('lodash');
+
+const numbers = [1, 2, 3, 4, 5];
+let foo;
+
+const sum = _.reduce(numbers, (total, num) => total + num, 0);
+const doubles = _.map(numbers, (num) => 2*num);
+_.forEach(doubles, num => console.log(num));
+
+if (_.isUndefined(foo)) {
+  console.log('Foo is not defined');
+}
+                </code></pre>
+            </section>
+            <section>
+                <h2>Päivämäärät ja aika</h2>
+                <p>Kannattaa käyttää momentJs:ää (<a target="_blank" href="http://momentjs.com/">http://momentjs.com/</a>) vähänkin monimutkaisempaan käsittelyyn.</p>
+                <pre><code class="hljs" data-trim contenteditable>
+const moment = require('moment');
+
+const currentDate = moment();
+moment().format('MMMM Do YYYY, h:mm:ss a');
+moment().add(10, 'days');
+moment("2010 13", "YYYY MM").isValid(); // false
+const parsed = moment("12-25-1995", "MM-DD-YYYY");
+const parsedDate = parsed.toDate();
+                </code></pre>
+            </section>
+            <section>
+                <h2>Luokat</h2>
+                <p>ES6:sta eteenpäin suositeltua käyttää class -avainsanaa luokan luonnissa</p>
+                <p>Metodit palauttamaan itsensä this-avainsanan avulla, jotta niitä voi ketjuttaa</p>
+                <p>Luokat isolla ja instassit pienellä alkukirjaimella tunnistamisen helpottamiseksi</p>
+            </section>
+            <section>
+                <h2>Luokat</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+class Person {
+  constructor(options) {
+    options = options || {};
+    this.name = options.name || 'no name';
+    this.age = options.age || 0;
+  }
+
+  getName() {
+    return this.name;
+  }
+
+  setName(name) {
+    this.name = name;
+    return this;
+  }
+
+  setAge(age) {
+    this.age = age;
+    return this;
+  }
+}
+
+const president = new Person();
+president.setName('Donald Thumb').setAge(70);
+                </code></pre>
+            </section>
+            <section>
+                <h2>Luokat (ES5)</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+var Person = function(options) {
+  options = options || {};
+  this.name = options.name || 'no name';
+  this.age = options.age || 0;
+}
+
+Person.prototype.getName = function() {
+  return this.name;
+}
+
+Person.prototype.setName = function(name) {
+  this.name = name;
+  return this;
+}
+
+Person.prototype.setAge = function(age) {
+  this.age = age;
+  return this;
+}
+
+var president = new Person({name: "Default name"});
+president.setName('Donald Thumb').setAge(70);
+                </code></pre>
+            </section>
+            <section>
+                <h2>This -avainsana</h2>
+                <p>Javascriptissä hieman ongelmallinen. Määräytyy mm. funktio-scopen mukaan</p>
+                <p>Kannattaa käyttää nuolifunktioita aina kun mahdollista callbackeissa, koska sen avulla this-konteksti menee oikein.</p>
+                <pre><code class="hljs" data-trim contenteditable>
+const calculator = {
+  factor: 5,
+  multiply: function(numbers) {
+    return numbers.map((num) => {
+      return this.factor*num;
+    });
+  }
+};
+                </code></pre>
+            </section>
+            <section>
+                <h2>This -avainsana (ES5)</h2>
+                <p>ES5 tai vanhemmissa kierretään apumuuttujan tai bind-funktion avulla.</p>
+                <pre><code class="hljs" data-trim contenteditable>
+var calculator = {
+  factor: 5,
+  multiply: function(numbers) {
+    var _this = this;
+    return _.map(numbers, function(num) {
+      return _this.factor*num;
+    });
+  }
+};
+
+var calculator = {
+  factor: 5,
+  multiply: function(numbers) {
+    var multiplierFunction = function(num) {
+      return this.factor*num;
+    };
+    return _.map(numbers, multiplierFunction.bind(this));
+  }
+};
+                </code></pre>
+            </section>
+            <section>
+                <h1>Yksikkötestaus NodeJs:llä</h1>
+            </section>
+            <section>
+                <h2>Mocha</h2>
+                <p>Ehkä tunnetuin yksikkötestaus-framework Nodelle. Kirjasto itsessään varsin pieni ja
+                    sisältää vain raamit testaukselle. Tuunataan oheiskirjastoilla</p>
+                <p>Asennus kannattaa tehdä globaalina: npm install -g</p>
+                <p>Käyttö (test -alihakemistoon): mocha test -w</p>
+            </section>
+            <section>
+                <h2>Mocha-testit</h2>
+                <p>Testien kirjoittaminen yleensä hankalampaa jälkikäteen, siksi kannattaa suosia TDD-tyyliä</p>
+                <p>Testit hyvä tapa dokumentoida moduulin/funktion toiminnallisuuksia</p>
+                <p>Bugien korjaus testien avulla</p>
+                <p>Jos testitapausten haaroja alkaa olla liikaa, tai moduuli on vaikea testata, niin merkki siitä että moduulia kannattaa pilkkoa pienempiin osiin</p>
+            </section>
+            <section>
+                <h2>Mocha-testit</h2>
+                <p>Syntaksi noudattelee BDD-tyyliä</p>
+                <p>describe = Testitapaus, jos sisäkkäin niin yleensä tarkennetaan testitapausta</p>
+                <p>it = Väittämä, eli varsinainen testin sisältö</p>
+                <p>beforeEach, afterEach = Alustukset ja siivoukset  jotka suoritetaan ennen jokaista testiä, tai jokaisen testin jälkeen</p>
+                <p>Suositellaan nuolifunktioiden välttämistä, koska se sotkee this -kontekstin</p>
+            </section>
+            <section>
+                <h2>Mocha-testit</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+describe('When json is parsed', function() {
+  beforeEach(function() {
+    // ...
+  });
+
+  it('should get the product id', function() {
+    // ...
+  });
+
+  describe('and id is not given', function() {
+    beforeEach(function() {
+      // ...
+    });
+
+    it('should return null', function() {
+       // ...
+    });
+  });
+
+  afterEach(function() {
+    // ...
+  });
+});
+                </code></pre>
+            </section>
+            <section>
+                <h2>Chai</h2>
+                <p>Kirjasto erilaisille assert-funktioille</p>
+                <pre><code class="hljs" data-trim contenteditable>
+const expect = chai.expect;
+
+const foo = 'bar';
+const person = {
+  name: 'Donald',
+  age: 70
+};
+
+expect(foo).to.be.a('string');
+expect(foo).to.equal('bar');
+expect(foo).to.have.length(3);
+expect(person).to.have.property('name')
+  .with.length(6);
+expect(person).to.deep.equals({name: 'Donald', age: 70});
+                </code></pre>
+            </section>
+            <section>
+                <h2>Sinon</h2>
+                <p>Kirjasto komponenttien feikkaamiseen.</p>
+                <p>Spy = Tutkitaan, onko jotain funktiota kutsuttu (n kertaa)</p>
+                <pre><code class="hljs" data-trim contenteditable>
+const callback = sinon.spy();
+const proxy = once(callback);
+proxy();
+assert(callback.calledOnce);
+                </code></pre>
+            </section>
+            <section>
+                <h2>Sinon</h2>
+                <p>Stub = Feikataan funktio palauttamaan tietty arvo</p>
+                <pre><code class="hljs" data-trim contenteditable>
+const parser = sinon.stub();
+parser.withArgs('foo.bar.12').returns(12);
+
+expect(parser('foo.bar.12')).to.equal(12);
+                </code></pre>
+            </section>
+            <section>
+                <h2>Rewire</h2>
+                <p>Näppärä kirjasto komponenttien feikkaamiseen node-moduulin sisällä - Monkey Patching</p>
+                <p>Voidaan ylikirjoittaa muuttujia, jotka on määritelty moduulin päätasolla</p>
+                <p>Rewire-kirjastoa käytettäessä joudutaan käyttämään let avainsanaa const:n asemasta!</p>
+            </section>
+            <section>
+                <h2>Rewire</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+// calculator.js
+let loader = require('loader');
+const numbers = loader.getNumbers();
+
+// unit test
+const rewire = require('rewire');
+const calculator = rewire('./calculator');
+
+calculator.__set__('loader', {
+  getNumbers: sinon.stub().returns([1, 2, 3])
+});
+                </code></pre>
+            </section>
+            <section>
+                <h2>Vaihtoehtoinen tapa feikata moduuleita</h2>
+                <p>Määritellään moduuli funktiona, jolloin requiren yhteydessä voidaan kiinnittää oheismoduuleita</p>
+                <pre><code class="hljs" data-trim contenteditable>
+function validator(parser) {
+  function validateAge(data) {
+    const age = parser.getAge(data);
+    return age === null ? false : age >= 0;
+  }
+
+  return {
+    validateAge: validateAge
+  };
+}
+
+module.exports = validator;
+                </code></pre>
+            </section>
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+            // More info https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                history: true,
+
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                dependencies: [
+                { src: 'plugin/markdown/marked.js' },
+                { src: 'plugin/markdown/markdown.js' },
+                { src: 'plugin/notes/notes.js', async: true },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                ]
+            });
+            </script>
+        </body>
+        </html>
