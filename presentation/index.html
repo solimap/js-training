@@ -408,6 +408,48 @@ var calculator = {
                 </code></pre>
             </section>
             <section>
+                <h2>Promise</h2>
+                <p>Noden asynkroninen malli callbackien avulla johtaa aika nopeasti sekavaan ja epäluettavaan koodiin.</p>
+                <p>Promiset yleisesti hyväksytty suunnittelumalli tähän ongelmaan</p>
+                <p>Promisen tuki tällä hetkellä vaihteleva</p>
+                <p>Promisiontikirjastot, kuten BluebirdJs</p>
+            </section>
+            <section>
+                <h2>Promise</h2>
+                <p>Normaali asynkroninen tapa:</p>
+                <pre><code class="hljs" data-trim contenteditable>
+fs.readFile("file.json", function (err, val) {
+    if (err) {
+        console.error("unable to read file");
+    }
+    else {
+        try {
+            val = JSON.parse(val);
+            console.log(val.success);
+        }
+        catch (e) {
+            console.error("invalid json in file");
+        }
+    }
+});
+            </code></pre>
+            </section>
+            <section>
+                <h2>Promise</h2>
+                <p>Promise -tyylinen tapa:</p>
+                <pre><code class="hljs" data-trim contenteditable>
+fs.readFileAsync("file.json").then(JSON.parse).then(function (val) {
+    console.log(val.success);
+})
+.catch(SyntaxError, function (e) {
+    console.error("invalid json in file");
+})
+.catch(function (e) {
+    console.error("unable to read file");
+});
+            </code></pre>
+            </section>
+            <section>
                 <h1>Yksikkötestaus NodeJs:llä</h1>
             </section>
             <section>
